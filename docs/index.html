@@ -124,7 +124,7 @@
 </head>
 <body>
   <header>
-    <h1>>NOVAWATECH Technical Strategy</h1>
+    <h1>NOVAWATECH Technical Strategy</h1>
     <p>CEO: Mamello Maliehe | CTO: Ofentse Menwe</p>
   </header>
 
@@ -166,13 +166,12 @@ model.fit(X_train, y_train)
 predictions = model.predict(X_test)</code></pre>
 
       <h3>4. Real-Time Scoring Engine</h3>
-      <p>Use FastAPI to serve the model and score live data streams.</p>
+      <p>Use FastAPI to serve the model and record data streams.</p>
 
       <h3>5. Alerting & Visualization</h3>
       <ul>
-        <li>Grafana for dashboards</li>
-        <li>Folium/ArcGIS for mapping risk zones</li>
-        <li>SMS/Email/WhatsApp alerts</li>
+        <li>PowerBI for dashboards</li>
+        <li>Email/WhatsApp alerts</li>
       </ul>
     </div>
   </section>
@@ -198,17 +197,17 @@ predictions = model.predict(X_test)</code></pre>
   </section>
 
   <section id="key-components">
-    <h2>2. Key Components & Tools Needed</h2>
+    <h2>Key Components & Tools Needed</h2>
     <h3>A. Real-Time Data Collection (IoT)</h3>
     <ul>
       <li><strong>Sensors:</strong> Pressure sensors, flow sensors, and temperature sensors installed on the pipes will send data continuously.</li>
-      <li><strong>IoT Platform:</strong> Use platforms like AWS IoT, Azure IoT, or MQTT to collect and stream the sensor data in real time.</li>
+      <li><strong>IoT Platform:</strong> Use MQTT to collect and stream the sensor data in real time.</li>
     </ul>
 
     <h3>B. Data Processing and Prediction (ML/AI)</h3>
     <ul>
       <li><strong>Machine Learning (ML):</strong> ML Model to predict burst risk based on pipe conditions (e.g., pressure, pipe age, material). Tools: scikit-learn, TensorFlow, or XGBoost.</li>
-      <li><strong>Data Pipeline:</strong> Use Kafka, AWS Kinesis, or Apache Flink for real-time data ingestion and stream processing.</li>
+      <li><strong>Data Pipeline:</strong> Use Kafka for real-time data ingestion</li>
     </ul>
 
     <h3>C. Simulation and Decision Making (Simulation + AI)</h3>
@@ -219,26 +218,26 @@ predictions = model.predict(X_test)</code></pre>
 
     <h3>D. Alerting and Monitoring</h3>
     <ul>
-      <li><strong>Real-Time Alerts:</strong> Integrate SMS, Email, or Push Notifications via tools like Twilio, SendGrid, or Amazon SNS.</li>
-      <li><strong>Visualization:</strong> Use Grafana, PowerBI, or Tableau to visualize the data and predictions. Show locations of high-risk pipes using ArcGIS or Folium.</li>
+      <li><strong>Real-Time Alerts:</strong> Integrate Email or WhatsApp notifications via SMTP/Twilio</li>
+      <li><strong>Visualization:</strong> Use PowerB to visualize the data and predictions.</li>
     </ul>
 
     <h3>E. Cloud Deployment</h3>
     <ul>
-      <li><strong>Cloud Platform:</strong> Use AWS, Google Cloud, or Azure to deploy the system and store the data.</li>
+      <li><strong>Cloud Platform:</strong> Use AWS or Azure to deploy the system and store the data (additonal cost).</li>
     </ul>
   </section>
 
   <section id="architecture">
-    <h2>3. Architecture Diagram</h2>
+    <h2>Implementation Plan</h2>
     <ul>
       <li><strong>Sensors:</strong> Install sensors on the pipes to measure pressure, temperature, and flow.</li>
-      <li><strong>Data Stream:</strong> Use MQTT or AWS IoT Core to stream the data in real-time.</li>
+      <li><strong>Data Stream:</strong> Use MQTT to stream the data in real-time.</li>
       <li><strong>Data Storage:</strong> Store historical data in TimescaleDB or InfluxDB for future training.</li>
       <li><strong>ML Model:</strong> Train a model using scikit-learn or XGBoost to predict burst risk. Output: Burst risk score (Low, Medium, High).</li>
       <li><strong>Real-Time Scoring:</strong> Use FastAPI to score incoming data in real-time.</li>
-      <li><strong>Alert System:</strong> When burst risk is high, send alerts via Twilio or SNS.</li>
-      <li><strong>Dashboard:</strong> Visualize predictions and sensor data in Grafana or PowerBI.</li>
+      <li><strong>Alert System:</strong> When burst risk is high, send alerts via Twilio or SMTP.</li>
+      <li><strong>Dashboard:</strong> Visualize predictions and sensor data in PowerBI.</li>
     </ul>
   </section>
 
@@ -253,7 +252,7 @@ predictions = model.predict(X_test)</code></pre>
   </section>
 
   <footer>
-    <h2>🙌 Let’s Build Resilient Cities</h2>
+    <h2>🙌 Building Resilient Cities with Novawatech</h2>
     <p>Prevent disasters before they occur. <a href="#">Contact us to collaborate</a> or <a href="#">Request a demo</a>.</p>
     <p><em>All simulations and models are reproducible using open-source Python libraries and standard hydraulic datasets.</em></p>
   </footer>
