@@ -3,129 +3,38 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI Strategy to Prevent Pipe Bursts</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      padding: 2rem;
-      background: #f4f7fb;
-      color: #333;
-      margin: 0;
-    }
-    h1, h2 {
-      color: #1a73e8;
-    }
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-    }
-    h2 {
-      font-size: 1.75rem;
-      margin-top: 1.5rem;
-    }
-    h3 {
-      font-size: 1.5rem;
-      color: #1a73e8;
-      margin-top: 1.25rem;
-    }
-    p, ul, ol {
-      font-size: 1.1rem;
-      line-height: 1.8;
-      margin: 1rem 0;
-    }
-    .section {
-      margin-bottom: 2rem;
-    }
-    table {
-      width: 100%;
-      margin-top: 1rem;
-      border-collapse: collapse;
-    }
-    table, th, td {
-      border: 1px solid #ccc;
-      padding: 0.75rem;
-    }
-    th {
-      background-color: #e0e0e0;
-      color: #555;
-    }
-    .cta-button {
-      background-color: #1a73e8;
-      color: #fff;
-      padding: 10px 20px;
-      text-decoration: none;
-      border-radius: 5px;
-      font-weight: bold;
-    }
-    .cta-button:hover {
-      background-color: #0059b3;
-    }
-    .container {
-      max-width: 1200px;
-      margin: auto;
-      background-color: white;
-      padding: 2rem;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-    .section ul {
-      list-style: disc inside;
-    }
-    .section ol {
-      list-style: decimal inside;
-    }
-    .interactive-box {
-      max-width: 400px;
-      margin: 2rem auto;
-      padding: 1rem;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      background: #f9f9f9;
-    }
-    .interactive-box input, .interactive-box select, .interactive-box button {
-      width: 100%;
-      padding: 8px;
-      margin-bottom: 1rem;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
-    .interactive-box button {
-      background-color: #1a73e8;
-      color: white;
-      font-weight: bold;
-    }
-    .interactive-box button:hover {
-      background-color: #0059b3;
-    }
-  </style>
+  <title>AI-Driven Strategy to Prevent Water Pipe Bursts</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="container">
+  <header>
     <h1>AI-Driven Strategy to Prevent Water Pipe Bursts</h1>
-    <p><strong>Presented by:</strong> [Your Startup Name] <br><strong>CTO:</strong> Ofentse Menwe</p>
+    <p>Presented by: [Your Startup Name] | CTO: Ofentse Menwe</p>
+  </header>
 
-    <div class="section">
-      <h2>🌍 Vision Statement</h2>
-      <p>We aim to revolutionize water infrastructure management through an intelligent, AI-driven platform that prevents costly water pipe bursts by predicting risks, simulating failures, and automating responses.</p>
-    </div>
+  <section id="vision">
+    <h2>🌍 Vision Statement</h2>
+    <p>We aim to revolutionize water infrastructure management through an intelligent, AI-driven platform that prevents costly water pipe bursts by predicting risks, simulating failures, and automating responses.</p>
+  </section>
 
-    <div class="section">
-      <h2>📊 Strategic Overview</h2>
-      <ul>
-        <li>Predict high-risk pipes</li>
-        <li>Simulate failure scenarios</li>
-        <li>Enable proactive maintenance</li>
-        <li>Reduce downtime, water loss, and infrastructure damage</li>
-      </ul>
-    </div>
+  <section id="overview">
+    <h2>📊 Strategic Overview</h2>
+    <ul>
+      <li>Predict high-risk pipes</li>
+      <li>Simulate failure scenarios</li>
+      <li>Enable proactive maintenance</li>
+      <li>Reduce downtime, water loss, and infrastructure damage</li>
+    </ul>
+  </section>
 
-    <div class="section">
-      <h2>🔬 Technical Strategy</h2>
+  <section id="technical-strategy">
+    <h2>🔬 Technical Strategy</h2>
+    <div class="strategy">
       <h3>1. Data Collection & IoT Integration</h3>
       <ul>
-        <li>Deploy pressure, flow, and temperature sensors for real-time data.</li>
-        <li>Stream data through MQTT or AWS IoT Core for live data monitoring.</li>
-        <li>Store data in scalable time-series databases like TimescaleDB or InfluxDB.</li>
+        <li>Sensors for pressure, flow, temperature</li>
+        <li>Stream data with MQTT or AWS IoT Core</li>
+        <li>Store in TimescaleDB or InfluxDB</li>
       </ul>
 
       <h3>2. Digital Twin Simulation</h3>
@@ -139,83 +48,69 @@ results = sim.run_sim()</code></pre>
 model = RandomForestClassifier()
 model.fit(X_train, y_train)
 predictions = model.predict(X_test)</code></pre>
-      <p>Output: Burst Risk Score (High, Medium, Low)</p>
-
-      <div class="interactive-box">
-        <h3>💧 Burst Risk Calculator</h3>
-        <label>Pipe Age (years): <input id="age" type="number"></label><br>
-        <label>Max Pressure (psi): <input id="pressure" type="number"></label><br>
-        <label>Pipe Material:
-          <select id="material">
-            <option value="PVC">PVC</option>
-            <option value="Steel">Steel</option>
-            <option value="Copper">Copper</option>
-          </select>
-        </label><br><br>
-        <button onclick="calcRisk()">Calculate Risk</button>
-        <p id="riskResult" style="font-weight:bold;"></p>
-      </div>
-
-      <script>
-      function calcRisk() {
-        const age = +document.getElementById('age').value;
-        const pres = +document.getElementById('pressure').value;
-        const mat = document.getElementById('material').value;
-
-        let score = 0;
-        if (age > 50) score++;
-        if (pres > 120) score++;
-        if (mat === 'Steel') score++;
-
-        const risk = score >= 2 ? '🟥 High' : score === 1 ? '🟧 Medium' : '🟩 Low';
-        document.getElementById('riskResult').textContent = `Risk Level: ${risk}`;
-      }
-      </script>
 
       <h3>4. Real-Time Scoring Engine</h3>
-      <p>Integrate the model into a FastAPI-based backend for live data scoring and decision-making.</p>
+      <p>Use FastAPI to serve the model and score live data streams.</p>
 
       <h3>5. Alerting & Visualization</h3>
       <ul>
-        <li>Visualize risk zones using Grafana dashboards or ArcGIS.</li>
-        <li>Trigger SMS/Email/WhatsApp alerts when risk thresholds are exceeded.</li>
+        <li>Grafana for dashboards</li>
+        <li>Folium/ArcGIS for mapping risk zones</li>
+        <li>SMS/Email/WhatsApp alerts</li>
       </ul>
     </div>
+  </section>
 
-    <div class="section">
-      <h2>🚀 Value Proposition</h2>
-      <p><strong>Reduce pipe failures by up to 70%</strong> through proactive AI-driven maintenance. Improve infrastructure resilience and reduce operational costs.</p>
-    </div>
+  <section id="burst-risk-calculator">
+    <h3>💧 Burst Risk Calculator</h3>
+    <label>Pipe Age (years): <input id="age" type="number"></label><br>
+    <label>Max Pressure (psi): <input id="pressure" type="number"></label><br>
+    <label>Pipe Material:
+      <select id="material">
+        <option value="PVC">PVC</option>
+        <option value="Steel">Steel</option>
+        <option value="Copper">Copper</option>
+      </select>
+    </label><br><br>
+    <button onclick="calcRisk()">Calculate Risk</button>
+    <p id="riskResult" style="font-weight:bold;"></p>
+  </section>
 
-    <div class="section">
-      <h2>📚 Technology Stack</h2>
-      <table>
-        <tr><th>Layer</th><th>Tools/Tech</th></tr>
-        <tr><td>Simulation</td><td>EPANET, WNTR (Python library)</td></tr>
-        <tr><td>Machine Learning</td><td>scikit-learn, XGBoost</td></tr>
-        <tr><td>Data Pipeline</td><td>MQTT, Kafka, AWS IoT</td></tr>
-        <tr><td>Storage</td><td>TimescaleDB, InfluxDB</td></tr>
-        <tr><td>Visualization</td><td>Grafana, ArcGIS, Folium</td></tr>
-        <tr><td>API Deployment</td><td>FastAPI, Docker, AWS</td></tr>
-      </table>
-    </div>
+  <section id="value-proposition">
+    <h2>🚀 Value Proposition</h2>
+    <p><strong>Reduce pipe failures by up to 70%</strong> through proactive AI-driven maintenance. Improve infrastructure resilience and reduce costs.</p>
+  </section>
 
-    <div class="section">
-      <h2>💡 Next Steps</h2>
-      <ol>
-        <li>Identify pilot municipality/network</li>
-        <li>Collect sensor data and build network model</li>
-        <li>Train and validate machine learning models</li>
-        <li>Launch MVP with real-time monitoring and alerting</li>
-      </ol>
-    </div>
+  <section id="next-steps">
+    <h2>💡 Next Steps</h2>
+    <ol>
+      <li>Identify pilot municipality/network</li>
+      <li>Build network model and collect data</li>
+      <li>Train and validate ML model</li>
+      <li>Launch MVP with alerting and dashboard</li>
+    </ol>
+  </section>
 
-    <div class="section">
-      <h2>🙌 Let’s Build Resilient Cities</h2>
-      <p>Prevent disasters before they occur. <br><a class="cta-button" href="#">Contact us to collaborate</a> or <a class="cta-button" href="#">Request a demo</a>.</p>
-    </div>
-
+  <footer>
+    <h2>🙌 Let’s Build Resilient Cities</h2>
+    <p>Prevent disasters before they occur. <a href="#">Contact us to collaborate</a> or <a href="#">Request a demo</a>.</p>
     <p><em>All simulations and models are reproducible using open-source Python libraries and standard hydraulic datasets.</em></p>
-  </div>
+  </footer>
+
+  <script>
+    function calcRisk() {
+      const age = +document.getElementById('age').value;
+      const pres = +document.getElementById('pressure').value;
+      const mat = document.getElementById('material').value;
+
+      let score = 0;
+      if (age > 50) score++;
+      if (pres > 120) score++;
+      if (mat === 'Steel') score++;
+      
+      const risk = score >= 2 ? '🟥 High' : score === 1 ? '🟧 Medium' : '🟩 Low';
+      document.getElementById('riskResult').textContent = `Risk Level: ${risk}`;
+    }
+  </script>
 </body>
 </html>
