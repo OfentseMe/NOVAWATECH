@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NOVAWATECH Technical Strategy</title>
+  <title>NOVAWATECH - AI Water Infrastructure</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
   <style>
     * {
       margin: 0;
@@ -15,12 +16,10 @@
     :root {
       --primary: #2563eb;
       --primary-dark: #1d4ed8;
-      --primary-light: #3b82f6;
       --secondary: #0f172a;
       --accent: #06b6d4;
       --success: #10b981;
       --warning: #f59e0b;
-      --danger: #ef4444;
       --text-primary: #1e293b;
       --text-secondary: #64748b;
       --text-muted: #94a3b8;
@@ -39,6 +38,7 @@
       color: var(--text-primary);
       background: var(--bg-secondary);
       font-size: 16px;
+      overflow-x: hidden;
     }
 
     .container {
@@ -47,7 +47,7 @@
       padding: 0 20px;
     }
 
-    /* Header Styles */
+    /* Header */
     header {
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: white;
@@ -64,8 +64,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="white" opacity="0.1"><polygon points="0,0 1000,0 1000,100 0,50"/></svg>');
-      background-size: 100% 100%;
+      background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.1) 0%, transparent 50%);
     }
 
     header .container {
@@ -74,211 +73,245 @@
     }
 
     header h1 {
-      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-size: clamp(3rem, 6vw, 5rem);
       font-weight: 700;
       margin-bottom: 20px;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      background: linear-gradient(45deg, #ffffff, #e0e7ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     header p {
-      font-size: 1.3rem;
+      font-size: 1.4rem;
       opacity: 0.9;
       font-weight: 300;
+      margin-bottom: 30px;
     }
 
     /* Navigation */
     nav {
-      background: var(--bg-primary);
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
       padding: 20px 0;
-      box-shadow: var(--shadow);
       position: sticky;
       top: 0;
       z-index: 100;
+      border-bottom: 1px solid var(--border);
     }
 
     nav ul {
       display: flex;
       justify-content: center;
       list-style: none;
-      gap: 40px;
-      flex-wrap: wrap;
+      gap: 60px;
     }
 
     nav a {
       color: var(--text-secondary);
       text-decoration: none;
-      font-weight: 500;
-      padding: 10px 20px;
-      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      padding: 15px 30px;
+      border-radius: 12px;
       transition: all 0.3s ease;
+      position: relative;
     }
 
+    nav a.active,
     nav a:hover {
       color: var(--primary);
       background: var(--bg-tertiary);
+      transform: translateY(-2px);
     }
 
-    /* Main Content */
-    main {
-      padding: 60px 0;
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 3px;
+      background: var(--primary);
+      border-radius: 2px;
+      transition: width 0.3s ease;
     }
 
-    .section {
+    nav a.active::after,
+    nav a:hover::after {
+      width: 20px;
+    }
+
+    /* Page Content */
+    .page {
+      display: none;
+      padding: 80px 0;
+      min-height: 70vh;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .page-header h2 {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+
+    .page-header p {
+      font-size: 1.3rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Cards */
+    .card {
       background: var(--bg-primary);
-      border-radius: 16px;
+      border-radius: 20px;
       padding: 40px;
       margin-bottom: 40px;
       box-shadow: var(--shadow);
       border: 1px solid var(--border);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
     }
 
-    .section:hover {
-      transform: translateY(-2px);
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--gradient);
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
       box-shadow: var(--shadow-lg);
     }
 
-    .section h2 {
-      color: var(--primary);
-      font-size: 2rem;
+    .card h3 {
+      color: var(--secondary);
+      font-size: 1.8rem;
       font-weight: 600;
       margin-bottom: 20px;
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 15px;
     }
 
-    .section h3 {
-      color: var(--secondary);
-      font-size: 1.4rem;
-      font-weight: 600;
-      margin: 30px 0 15px 0;
-      padding-bottom: 10px;
-      border-bottom: 2px solid var(--bg-tertiary);
-    }
-
-    .section p {
+    .card p {
       color: var(--text-secondary);
       font-size: 1.1rem;
       margin-bottom: 20px;
+      line-height: 1.8;
     }
 
-    .section ul, .section ol {
-      margin-left: 0;
-      padding-left: 0;
+    .card ul {
       list-style: none;
+      margin: 0;
+      padding: 0;
     }
 
-    .section li {
+    .card li {
       background: var(--bg-tertiary);
-      margin-bottom: 12px;
-      padding: 16px 20px;
-      border-radius: 8px;
+      margin-bottom: 15px;
+      padding: 20px;
+      border-radius: 12px;
       border-left: 4px solid var(--primary);
       font-size: 1.05rem;
       transition: all 0.3s ease;
-    }
-
-    .section li:hover {
-      background: var(--bg-secondary);
-      transform: translateX(4px);
-    }
-
-    .section ol li {
-      counter-increment: step-counter;
       position: relative;
-      padding-left: 60px;
     }
 
-    .section ol {
-      counter-reset: step-counter;
+    .card li:hover {
+      background: var(--bg-secondary);
+      transform: translateX(8px);
     }
 
-    .section ol li::before {
-      content: counter(step-counter);
+    .card li::before {
+      content: '✓';
       position: absolute;
-      left: 20px;
+      left: -15px;
       top: 50%;
       transform: translateY(-50%);
       background: var(--primary);
       color: white;
-      width: 28px;
-      height: 28px;
+      width: 25px;
+      height: 25px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
+      font-size: 0.8rem;
       font-weight: 600;
-      font-size: 0.9rem;
     }
 
-    /* Code Blocks */
-    pre {
-      background: #1e293b;
-      color: #e2e8f0;
-      border-radius: 12px;
-      padding: 24px;
-      overflow-x: auto;
-      font-family: 'Consolas', 'Monaco', monospace;
-      font-size: 0.95rem;
-      line-height: 1.6;
-      border: 1px solid #334155;
-      margin: 20px 0;
-    }
-
-    pre code {
-      color: inherit;
-    }
-
-    /* Calculator Section */
-    .calculator {
+    /* Calculator Styles */
+    .calculator-card {
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: white;
-      border-radius: 16px;
-      padding: 40px;
-      margin: 40px 0;
-      box-shadow: var(--shadow-lg);
+      border: none;
     }
 
-    .calculator h3 {
-      color: white;
-      border-bottom: 2px solid rgba(255,255,255,0.2);
+    .calculator-card::before {
+      display: none;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
       margin-bottom: 30px;
     }
 
     .form-group {
-      margin-bottom: 20px;
+      margin-bottom: 0;
     }
 
     .form-group label {
       display: block;
-      margin-bottom: 8px;
-      font-weight: 500;
+      margin-bottom: 10px;
+      font-weight: 600;
       color: rgba(255,255,255,0.9);
+      font-size: 1rem;
     }
 
     .form-group input,
     .form-group select {
       width: 100%;
-      padding: 12px 16px;
+      padding: 16px 20px;
       border: none;
-      border-radius: 8px;
-      font-size: 1rem;
-      background: rgba(255,255,255,0.1);
+      border-radius: 12px;
+      font-size: 1.1rem;
+      background: rgba(255,255,255,0.15);
       color: white;
       backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.2);
+      border: 2px solid rgba(255,255,255,0.2);
+      transition: all 0.3s ease;
     }
 
     .form-group input::placeholder {
-      color: rgba(255,255,255,0.6);
+      color: rgba(255,255,255,0.7);
     }
 
     .form-group input:focus,
     .form-group select:focus {
       outline: none;
-      border-color: rgba(255,255,255,0.5);
-      box-shadow: 0 0 0 3px rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.6);
+      background: rgba(255,255,255,0.2);
+      transform: translateY(-2px);
     }
 
     .form-group select option {
@@ -287,144 +320,178 @@
     }
 
     .btn {
-      background: rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.25);
       color: white;
       border: none;
-      padding: 14px 28px;
-      font-size: 1.1rem;
+      padding: 18px 40px;
+      font-size: 1.2rem;
       font-weight: 600;
-      border-radius: 8px;
+      border-radius: 12px;
       cursor: pointer;
       transition: all 0.3s ease;
       backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.3);
+      border: 2px solid rgba(255,255,255,0.3);
+      width: 100%;
+      margin-top: 20px;
     }
 
     .btn:hover {
-      background: rgba(255,255,255,0.3);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      background: rgba(255,255,255,0.35);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
     }
 
     .risk-result {
-      margin-top: 20px;
-      padding: 20px;
-      border-radius: 8px;
-      background: rgba(255,255,255,0.1);
+      margin-top: 30px;
+      padding: 25px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.15);
       backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.2);
-      font-size: 1.2rem;
-      font-weight: 600;
+      border: 2px solid rgba(255,255,255,0.25);
+      font-size: 1.1rem;
       text-align: center;
+      animation: fadeInUp 0.5s ease;
+    }
+
+    /* Code Blocks */
+    pre {
+      background: #1e293b;
+      color: #e2e8f0;
+      border-radius: 16px;
+      padding: 30px;
+      overflow-x: auto;
+      font-family: 'Monaco', 'Consolas', monospace;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      border: 1px solid #334155;
+      margin: 25px 0;
+      position: relative;
+    }
+
+    pre::before {
+      content: '';
+      position: absolute;
+      top: 15px;
+      left: 20px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #ef4444;
+      box-shadow: 20px 0 0 #f59e0b, 40px 0 0 #10b981;
+    }
+
+    /* Architecture Diagram */
+    .diagram-container {
+      background: var(--bg-primary);
+      border-radius: 20px;
+      padding: 40px 20px;
+      margin: 40px 0;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      overflow-x: auto;
+    }
+
+    .mermaid {
+      display: flex;
+      justify-content: center;
+    }
+
+    /* Grid Layout */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+      margin: 40px 0;
+    }
+
+    .grid-item {
+      background: var(--bg-primary);
+      padding: 35px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .grid-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--gradient);
+    }
+
+    .grid-item:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .grid-item h4 {
+      color: var(--primary);
+      font-size: 1.4rem;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+    .grid-item p {
+      color: var(--text-secondary);
+      line-height: 1.7;
     }
 
     /* Value Proposition */
-    .value-prop {
+    .value-card {
       background: linear-gradient(135deg, #10b981 0%, #059669 100%);
       color: white;
-    }
-
-    .value-prop h2 {
-      color: white;
-    }
-
-    .value-prop p {
-      color: rgba(255,255,255,0.9);
-      font-size: 1.3rem;
       text-align: center;
+      padding: 60px 40px;
+    }
+
+    .value-card h3 {
+      color: white;
+      font-size: 2.2rem;
+      margin-bottom: 25px;
+    }
+
+    .value-card p {
+      color: rgba(255,255,255,0.95);
+      font-size: 1.4rem;
+      font-weight: 300;
     }
 
     /* Footer */
     footer {
       background: var(--secondary);
       color: white;
-      padding: 60px 0 40px;
+      padding: 80px 0 50px;
       text-align: center;
+      margin-top: 80px;
     }
 
     footer h2 {
-      font-size: 2rem;
-      margin-bottom: 20px;
+      font-size: 2.5rem;
+      margin-bottom: 25px;
       color: white;
+      font-weight: 600;
     }
 
     footer p {
-      font-size: 1.1rem;
-      margin-bottom: 15px;
+      font-size: 1.2rem;
+      margin-bottom: 20px;
       opacity: 0.9;
     }
 
     footer a {
       color: var(--accent);
       text-decoration: none;
-      font-weight: 500;
+      font-weight: 600;
       transition: color 0.3s ease;
     }
 
     footer a:hover {
       color: white;
-    }
-
-    /* Grid Layout */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px;
-      margin: 30px 0;
-    }
-
-    .grid-item {
-      background: var(--bg-tertiary);
-      padding: 30px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      transition: all 0.3s ease;
-    }
-
-    .grid-item:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-lg);
-    }
-
-    .grid-item h4 {
-      color: var(--primary);
-      font-size: 1.3rem;
-      margin-bottom: 15px;
-      font-weight: 600;
-    }
-
-    /* Responsive Design */
-    @media (max-width: 768px) {
-      .container {
-        padding: 0 15px;
-      }
-
-      header {
-        padding: 60px 0;
-      }
-
-      .section {
-        padding: 30px 20px;
-        margin-bottom: 30px;
-      }
-
-      nav ul {
-        gap: 20px;
-      }
-
-      nav a {
-        padding: 8px 16px;
-        font-size: 0.95rem;
-      }
-
-      pre {
-        padding: 20px;
-        font-size: 0.9rem;
-      }
-
-      .calculator {
-        padding: 30px 20px;
-      }
     }
 
     /* Animations */
@@ -439,8 +506,52 @@
       }
     }
 
-    .section {
+    .card {
       animation: fadeInUp 0.6s ease-out;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 15px;
+      }
+
+      header {
+        padding: 60px 0;
+      }
+
+      header h1 {
+        font-size: 2.5rem;
+      }
+
+      nav ul {
+        gap: 20px;
+      }
+
+      nav a {
+        padding: 12px 20px;
+        font-size: 1rem;
+      }
+
+      .page {
+        padding: 60px 0;
+      }
+
+      .page-header h2 {
+        font-size: 2.2rem;
+      }
+
+      .card {
+        padding: 30px 20px;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
     }
 
     /* Scroll behavior */
@@ -453,52 +564,57 @@
   <header>
     <div class="container">
       <h1>NOVAWATECH</h1>
-      <p>CEO: Mamello Maliehe | CTO: Ofentse Menwe</p>
+      <p>AI-Driven Water Infrastructure Management</p>
+      <p style="font-size: 1.1rem; opacity: 0.8;">CEO: Mamello Maliehe | CTO: Ofentse Menwe</p>
     </div>
   </header>
 
   <nav>
     <div class="container">
       <ul>
-        <li><a href="#vision">Vision</a></li>
-        <li><a href="#overview">Overview</a></li>
-        <li><a href="#technical-strategy">Strategy</a></li>
-        <li><a href="#calculator">Calculator</a></li>
-        <li><a href="#components">Components</a></li>
-        <li><a href="#implementation">Implementation</a></li>
+        <li><a href="#" onclick="showPage('vision')" class="nav-link active">Vision</a></li>
+        <li><a href="#" onclick="showPage('calculator')" class="nav-link">Calculator</a></li>
+        <li><a href="#" onclick="showPage('implementation')" class="nav-link">Implementation</a></li>
       </ul>
     </div>
   </nav>
 
   <main>
     <div class="container">
-      <section class="section" id="vision">
-        <h2>🌍 Vision Statement</h2>
-        <p>We aim to revolutionize water infrastructure management through an intelligent, AI-driven platform that prevents costly water pipe bursts by predicting risks, simulating failures, and automating responses.</p>
-      </section>
+      <!-- Vision Page -->
+      <div class="page active" id="vision">
+        <div class="page-header">
+          <h2>🌍 Our Vision</h2>
+          <p>Revolutionizing water infrastructure through intelligent AI-driven solutions</p>
+        </div>
 
-      <section class="section" id="overview">
-        <h2>📊 Strategic Overview</h2>
-        <ul>
-          <li>Predict high-risk pipes using advanced machine learning algorithms</li>
-          <li>Simulate failure scenarios with digital twin technology</li>
-          <li>Enable proactive maintenance through real-time monitoring</li>
-          <li>Reduce downtime, water loss, and infrastructure damage significantly</li>
-        </ul>
-      </section>
+        <div class="card">
+          <h3>🎯 Vision Statement</h3>
+          <p>We aim to revolutionize water infrastructure management through an intelligent, AI-driven platform that prevents costly water pipe bursts by predicting risks, simulating failures, and automating responses.</p>
+        </div>
 
-      <section class="section" id="technical-strategy">
-        <h2>🔬 Technical Strategy</h2>
-        
-        <h3>1. Data Collection & IoT Integration</h3>
-        <ul>
-          <li>Deploy smart sensors for pressure, flow, and temperature monitoring</li>
-          <li>Stream real-time data using MQTT or AWS IoT Core protocols</li>
-          <li>Store time-series data in TimescaleDB or InfluxDB for analysis</li>
-        </ul>
+        <div class="card">
+          <h3>📊 Strategic Overview</h3>
+          <ul>
+            <li>Predict high-risk pipes using advanced machine learning algorithms</li>
+            <li>Simulate failure scenarios with digital twin technology</li>
+            <li>Enable proactive maintenance through real-time monitoring</li>
+            <li>Reduce downtime, water loss, and infrastructure damage significantly</li>
+          </ul>
+        </div>
 
-        <h3>2. Digital Twin Simulation</h3>
-        <pre><code>import wntr
+        <div class="card">
+          <h3>🔬 Technical Strategy</h3>
+          
+          <h4 style="margin-top: 30px; margin-bottom: 15px; color: var(--primary);">1. Data Collection & IoT Integration</h4>
+          <ul>
+            <li>Deploy smart sensors for pressure, flow, and temperature monitoring</li>
+            <li>Stream real-time data using MQTT protocols</li>
+            <li>Store time-series data in TimescaleDB or InfluxDB for analysis</li>
+          </ul>
+
+          <h4 style="margin-top: 30px; margin-bottom: 15px; color: var(--primary);">2. Digital Twin Simulation</h4>
+          <pre><code>import wntr
 import numpy as np
 
 # Create water network model
@@ -511,8 +627,8 @@ results = sim.run_sim()
 # Analyze pressure patterns
 pressure_data = results.node['pressure']</code></pre>
 
-        <h3>3. Machine Learning for Burst Prediction</h3>
-        <pre><code>from sklearn.ensemble import RandomForestClassifier
+          <h4 style="margin-top: 30px; margin-bottom: 15px; color: var(--primary);">3. Machine Learning for Burst Prediction</h4>
+          <pre><code>from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import StandardScaler
 import pandas as pd
 
@@ -527,202 +643,236 @@ model.fit(X_scaled, y_train)
 # Generate predictions
 predictions = model.predict_proba(X_test)[:, 1]</code></pre>
 
-        <h3>4. Real-Time Scoring Engine</h3>
-        <p>Implement FastAPI-based microservices to serve ML models and process real-time data streams with sub-second response times.</p>
+          <h4 style="margin-top: 30px; margin-bottom: 15px; color: var(--primary);">4. Real-Time Scoring Engine</h4>
+          <p>Implement FastAPI-based microservices to serve ML models and process real-time data streams with sub-second response times.</p>
 
-        <h3>5. Alerting & Visualization</h3>
-        <ul>
-          <li>Interactive dashboards built with PowerBI and real-time data visualization</li>
-          <li>Multi-channel alerting system via Email, WhatsApp, and SMS</li>
-          <li>Mobile-responsive interface for field engineers</li>
-        </ul>
-      </section>
+          <h4 style="margin-top: 30px; margin-bottom: 15px; color: var(--primary);">5. Alerting & Visualization</h4>
+          <ul>
+            <li>Interactive dashboards built with PowerBI and real-time data visualization</li>
+            <li>Multi-channel alerting system via Email, WhatsApp, and SMS</li>
+            <li>Mobile-responsive interface for field engineers</li>
+          </ul>
+        </div>
 
-      <div class="calculator" id="calculator">
-        <h3>💧 Burst Risk Calculator</h3>
-        <p>Calculate the risk level for water pipe bursts based on key parameters:</p>
-        
-        <div class="form-group">
-          <label for="age">Pipe Age (years):</label>
-          <input type="number" id="age" placeholder="Enter pipe age" min="0" max="200">
+        <div class="card value-card">
+          <h3>🚀 Value Proposition</h3>
+          <p><strong>Reduce pipe failures by up to 70%</strong> through proactive AI-driven maintenance. Improve infrastructure resilience, minimize water loss, and significantly reduce operational costs while ensuring reliable water supply for communities.</p>
         </div>
-        
-        <div class="form-group">
-          <label for="pressure">Maximum Pressure (psi):</label>
-          <input type="number" id="pressure" placeholder="Enter max pressure" min="0" max="500">
-        </div>
-        
-        <div class="form-group">
-          <label for="material">Pipe Material:</label>
-          <select id="material">
-            <option value="">Select material</option>
-            <option value="PVC">PVC (Polyvinyl Chloride)</option>
-            <option value="Steel">Steel</option>
-            <option value="Copper">Copper</option>
-            <option value="Cast Iron">Cast Iron</option>
-          </select>
-        </div>
-        
-        <button class="btn" onclick="calcRisk()">Calculate Risk Level</button>
-        <div id="riskResult" class="risk-result" style="display: none;"></div>
       </div>
 
-      <section class="section value-prop">
-        <h2>🚀 Value Proposition</h2>
-        <p><strong>Reduce pipe failures by up to 70%</strong> through proactive AI-driven maintenance. Improve infrastructure resilience, minimize water loss, and significantly reduce operational costs while ensuring reliable water supply for communities.</p>
-      </section>
+      <!-- Calculator Page -->
+      <div class="page" id="calculator">
+        <div class="page-header">
+          <h2>🧮 Risk Calculator</h2>
+          <p>Assess water pipe burst risk using advanced algorithms</p>
+        </div>
 
-      <section class="section" id="components">
-        <h2>🔧 Key Components & Tools</h2>
-        
-        <div class="grid">
-          <div class="grid-item">
-            <h4>A. Real-Time Data Collection</h4>
-            <p><strong>Sensors:</strong> Pressure, flow, and temperature sensors provide continuous monitoring</p>
-            <p><strong>IoT Platform:</strong> MQTT protocol for reliable data streaming</p>
+        <div class="card calculator-card">
+          <h3>💧 Burst Risk Assessment</h3>
+          <p>Calculate the risk level for water pipe bursts based on key infrastructure parameters:</p>
+          
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="age">Pipe Age (years):</label>
+              <input type="number" id="age" placeholder="Enter pipe age" min="0" max="200">
+            </div>
+            
+            <div class="form-group">
+              <label for="pressure">Maximum Pressure (psi):</label>
+              <input type="number" id="pressure" placeholder="Enter max pressure" min="0" max="500">
+            </div>
+            
+            <div class="form-group">
+              <label for="material">Pipe Material:</label>
+              <select id="material">
+                <option value="">Select material</option>
+                <option value="PVC">PVC (Polyvinyl Chloride)</option>
+                <option value="Steel">Steel</option>
+                <option value="Copper">Copper</option>
+                <option value="Cast Iron">Cast Iron</option>
+              </select>
+            </div>
           </div>
           
-          <div class="grid-item">
-            <h4>B. Machine Learning Pipeline</h4>
-            <p><strong>ML Models:</strong> Advanced algorithms using scikit-learn, TensorFlow, or XGBoost</p>
-            <p><strong>Data Pipeline:</strong> Apache Kafka for real-time data ingestion and processing</p>
-          </div>
+          <button class="btn" onclick="calcRisk()">Calculate Risk Level</button>
+          <div id="riskResult" class="risk-result" style="display: none;"></div>
+        </div>
+      </div>
+
+      <!-- Implementation Page -->
+      <div class="page" id="implementation">
+        <div class="page-header">
+          <h2>🛠️ Implementation</h2>
+          <p>Technical architecture and system components</p>
+        </div>
+
+        <div class="card">
+          <h3>🏗️ System Architecture</h3>
+          <p>Our comprehensive AI-driven water infrastructure platform follows a modern, scalable architecture designed for reliability and performance.</p>
           
-          <div class="grid-item">
-            <h4>C. Simulation Engine</h4>
-            <p><strong>Hydraulic Simulation:</strong> EPANET and WNTR for network modeling</p>
-            <p><strong>Risk Assessment:</strong> Predictive models based on historical and real-time data</p>
+          <div class="diagram-container">
+            <div class="mermaid">
+flowchart TD
+    %% Physical Layer
+    subgraph Physical ["🏭 Physical Infrastructure"]
+        Sensors[🌡️ Smart Sensors<br/>Pressure • Flow • Temperature]
+        Pipes[🚰 Water Network<br/>Pipe Infrastructure]
+        Valves[🔧 Smart Valves<br/>Automated Control]
+    end
+
+    %% Edge Computing
+    subgraph Edge ["📡 Edge & IoT Layer"]
+        Gateway[🛡️ IoT Gateway<br/>Edge Processing]
+        MQTT[📨 MQTT Broker<br/>Real-time Messaging]
+    end
+
+    %% Data Streaming
+    subgraph Stream ["⚡ Stream Processing"]
+        Kafka[🔄 Apache Kafka<br/>Event Streaming]
+        Redis[⚡ Redis Cache<br/>Real-time Buffer]
+    end
+
+    %% AI/ML Platform
+    subgraph AI ["🧠 AI/ML Platform"]
+        MLModel[🤖 ML Models<br/>Burst Prediction]
+        DigitalTwin[🔮 Digital Twin<br/>WNTR Simulation]
+        RiskEngine[🎯 Risk Scoring<br/>Real-time Engine]
+    end
+
+    %% Data Storage
+    subgraph Storage ["💾 Data Platform"]
+        TimescaleDB[(⏰ TimescaleDB<br/>Time Series Data)]
+        MongoDB[(🍃 MongoDB<br/>Configuration)]
+        S3[(☁️ S3 Storage<br/>Archives)]
+    end
+
+    %% Application Services
+    subgraph Apps ["🎯 Application Layer"]
+        FastAPI[🚀 FastAPI<br/>REST Services]
+        Auth[🔐 Authentication<br/>Security Layer]
+        Notifications[📢 Alert Engine<br/>Multi-channel]
+    end
+
+    %% User Interfaces
+    subgraph UI ["🖥️ User Experience"]
+        Dashboard[📊 PowerBI<br/>Analytics Dashboard]
+        WebApp[💻 Web Portal<br/>Management UI]
+        Mobile[📱 Mobile App<br/>Field Operations]
+    end
+
+    %% External Services
+    subgraph External ["🌐 External APIs"]
+        Twilio[📱 Twilio<br/>SMS/WhatsApp]
+        Email[📧 SMTP<br/>Email Service]
+        Weather[🌤️ Weather API<br/>Environmental]
+    end
+
+    %% Cloud Infrastructure
+    subgraph Cloud ["☁️ Cloud Platform"]
+        LoadBalancer[🔄 Load Balancer]
+        Kubernetes[🚀 Kubernetes<br/>Container Platform]
+        Monitoring[📊 Observability<br/>Logs & Metrics]
+    end
+
+    %% Main Data Flow
+    Sensors --> Gateway
+    Gateway --> MQTT
+    MQTT --> Kafka
+    Kafka --> Redis
+    Kafka --> TimescaleDB
+
+    %% AI Processing
+    TimescaleDB --> MLModel
+    Redis --> RiskEngine
+    MLModel --> RiskEngine
+    RiskEngine --> DigitalTwin
+
+    %% Application Flow
+    RiskEngine --> FastAPI
+    TimescaleDB --> FastAPI
+    MongoDB --> FastAPI
+    FastAPI --> Auth
+
+    %% User Interface
+    FastAPI --> Dashboard
+    FastAPI --> WebApp
+    FastAPI --> Mobile
+
+    %% Alert Flow
+    RiskEngine -.->|High Risk| Notifications
+    Notifications -.->|SMS Alert| Twilio
+    Notifications -.->|Email Alert| Email
+    Notifications -.->|Emergency| Valves
+
+    %% External Integration
+    Weather --> FastAPI
+    S3 --> FastAPI
+
+    %% Infrastructure
+    LoadBalancer --> FastAPI
+    Kubernetes -.-> FastAPI
+    Monitoring -.-> Kafka
+    Monitoring -.-> RiskEngine
+
+    %% Physical Control Loop
+    Valves -.->|Control| Pipes
+    Pipes -.->|Feedback| Sensors
+
+    %% Modern Styling
+    classDef physical fill:#e3f2fd,stroke:#1976d2,stroke-width:2px,color:#0d47a1
+    classDef edge fill:#fff3e0,stroke:#f57c00,stroke-width:2px,color:#e65100
+    classDef stream fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#1b5e20
+    classDef ai fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#4a148c
+    classDef storage fill:#e1f5fe,stroke:#0288d1,stroke-width:2px,color:#01579b
+    classDef apps fill:#fce4ec,stroke:#c2185b,stroke-width:2px,color:#880e4f
+    classDef ui fill:#e8f5e8,stroke:#43a047,stroke-width:2px,color:#2e7d32
+    classDef external fill:#fff8e1,stroke:#ffa000,stroke-width:2px,color:#ff6f00
+    classDef cloud fill:#f3e5f5,stroke:#8e24aa,stroke-width:2px,color:#4a148c
+
+    class Sensors,Pipes,Valves physical
+    class Gateway,MQTT edge
+    class Kafka,Redis stream
+    class MLModel,DigitalTwin,RiskEngine ai
+    class TimescaleDB,MongoDB,S3 storage
+    class FastAPI,Auth,Notifications apps
+    class Dashboard,WebApp,Mobile ui
+    class Twilio,Email,Weather external
+    class LoadBalancer,Kubernetes,Monitoring cloud
+            </div>
           </div>
-          
-          <div class="grid-item">
-            <h4>D. Monitoring & Alerts</h4>
-            <p><strong>Real-Time Notifications:</strong> Email, WhatsApp, and SMS via Twilio</p>
-            <p><strong>Visualization:</strong> PowerBI dashboards for comprehensive data analysis</p>
+        </div>
+
+        <div class="card">
+          <h3>🔧 Key Components</h3>
+          <div class="grid">
+            <div class="grid-item">
+              <h4>A. Real-Time Data Collection</h4>
+              <p><strong>Sensors:</strong> Pressure, flow, and temperature sensors provide continuous monitoring</p>
+              <p><strong>IoT Platform:</strong> MQTT protocol for reliable data streaming</p>
+            </div>
+            
+            <div class="grid-item">
+              <h4>B. Machine Learning Pipeline</h4>
+              <p><strong>ML Models:</strong> Advanced algorithms using scikit-learn, TensorFlow, or XGBoost</p>
+              <p><strong>Data Pipeline:</strong> Apache Kafka for real-time data ingestion and processing</p>
+            </div>
+            
+            <div class="grid-item">
+              <h4>C. Simulation Engine</h4>
+              <p><strong>Hydraulic Simulation:</strong> EPANET and WNTR for network modeling</p>
+              <p><strong>Risk Assessment:</strong> Predictive models based on historical and real-time data</p>
+            </div>
+            
+            <div class="grid-item">
+              <h4>D. Monitoring & Alerts</h4>
+              <p><strong>Real-Time Notifications:</strong> Email, WhatsApp, and SMS via Twilio</p>
+              <p><strong>Visualization:</strong> PowerBI dashboards for comprehensive data analysis</p>
+            </div>
           </div>
         </div>
-      </section>
 
-      <section class="section" id="implementation">
-        <h2>🛠️ Implementation Roadmap</h2>
-        <ol>
-          <li><strong>Sensor Deployment:</strong> Install IoT sensors across critical pipe networks for comprehensive monitoring</li>
-          <li><strong>Data Infrastructure:</strong> Establish MQTT streaming and TimescaleDB storage systems</li>
-          <li><strong>Model Development:</strong> Train and validate machine learning models using historical burst data</li>
-          <li><strong>Integration:</strong> Deploy FastAPI scoring engine for real-time risk assessment</li>
-          <li><strong>Alert System:</strong> Configure multi-channel notification system for immediate response</li>
-          <li><strong>Dashboard Launch:</strong> Deploy PowerBI visualization platform for stakeholder access</li>
-        </ol>
-      </section>
-
-      <section class="section">
-        <h2>💡 Next Steps</h2>
-        <ol>
-          <li>Identify and partner with pilot municipality for initial deployment</li>
-          <li>Build comprehensive network model and establish data collection protocols</li>
-          <li>Train and rigorously validate machine learning prediction models</li>
-          <li>Launch minimum viable product with integrated alerting and dashboard systems</li>
-        </ol>
-      </section>
-    </div>
-  </main>
-
-  <footer>
-    <div class="container">
-      <h2>🙌 Building Resilient Cities with NOVAWATECH</h2>
-      <p>Prevent disasters before they occur through intelligent infrastructure management.</p>
-      <p><a href="#">Contact us to collaborate</a> or <a href="#">Request a demo</a></p>
-      <p><em>All simulations and models are reproducible using open-source Python libraries and standard hydraulic datasets.</em></p>
-    </div>
-  </footer>
-
-  <script>
-    function calcRisk() {
-      const age = +document.getElementById('age').value;
-      const pressure = +document.getElementById('pressure').value;
-      const material = document.getElementById('material').value;
-      
-      const resultDiv = document.getElementById('riskResult');
-      
-      if (!age || !pressure || !material) {
-        resultDiv.style.display = 'block';
-        resultDiv.innerHTML = '⚠️ Please fill in all fields to calculate risk level';
-        return;
-      }
-
-      let score = 0;
-      let factors = [];
-      
-      // Age factor
-      if (age > 50) {
-        score += 2;
-        factors.push('Pipe age > 50 years');
-      } else if (age > 30) {
-        score += 1;
-        factors.push('Pipe age > 30 years');
-      }
-      
-      // Pressure factor
-      if (pressure > 120) {
-        score += 2;
-        factors.push('High pressure > 120 psi');
-      } else if (pressure > 80) {
-        score += 1;
-        factors.push('Moderate pressure > 80 psi');
-      }
-      
-      // Material factor
-      if (material === 'Cast Iron') {
-        score += 2;
-        factors.push('Cast iron material (high corrosion risk)');
-      } else if (material === 'Steel') {
-        score += 1;
-        factors.push('Steel material (moderate corrosion risk)');
-      }
-      
-      let risk, color, recommendation;
-      
-      if (score >= 4) {
-        risk = '🔴 CRITICAL';
-        color = '#ef4444';
-        recommendation = 'Immediate inspection and maintenance required';
-      } else if (score >= 2) {
-        risk = '🟡 MODERATE';
-        color = '#f59e0b';
-        recommendation = 'Schedule maintenance within 30 days';
-      } else {
-        risk = '🟢 LOW';
-        color = '#10b981';
-        recommendation = 'Continue regular monitoring';
-      }
-      
-      resultDiv.style.display = 'block';
-      resultDiv.innerHTML = `
-        <div style="color: ${color}; font-size: 1.5rem; margin-bottom: 10px;">
-          Risk Level: ${risk}
-        </div>
-        <div style="margin-bottom: 15px;">
-          <strong>Risk Factors:</strong><br>
-          ${factors.length > 0 ? factors.join('<br>') : 'No significant risk factors identified'}
-        </div>
-        <div style="font-size: 1rem; opacity: 0.9;">
-          <strong>Recommendation:</strong> ${recommendation}
-        </div>
-      `;
-    }
-
-    // Smooth scrolling for navigation links
-    document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
-      });
-    });
-  </script>
-</body>
-</html>
+        <div class="card">
+          <h3>🗺️ Implementation Roadmap</h3>
+          <ol style="list-style: decimal; margin-left: 20px;">
+            <li style="background: var(--bg-tertiary); margin-bottom: 15px; padding: 20px; border-radius: 12px; border-left: 4px solid var(--primary);"><strong>Sensor Deployment:</strong> Install IoT sensors across critical pipe networks for comprehensive monitoring</li>
+            <li style="background: var(--bg-tertiary); margin-bottom: 15px; padding: 20px; border-radius: 12px; border-left: 4px solid var(--primary);"><strong>Data Infrastructure:</strong> Establish MQTT streaming and TimescaleDB storage systems</li
