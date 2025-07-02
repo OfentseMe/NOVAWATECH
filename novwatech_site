@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Novwatech - Smart Pipe Monitoring System</title>
+    <title>NovWaTech - Smart Pipe Monitoring System</title>
     <style>
         * {
             margin: 0;
@@ -377,7 +377,7 @@
 <body>
     <header>
         <nav class="container">
-            <div class="logo">Novwatech</div>
+            <div class="logo">NovWaTech</div>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#features">Technology</a></li>
@@ -391,7 +391,7 @@
     <main>
         <div class="hero" id="home">
             <div class="container">
-                <h1>Novwatech</h1>
+                <h1>NovWaTech</h1>
                 <p>Intelligent Water Infrastructure Monitoring & Burst Prevention</p>
                 
                 <div class="vision-box">
@@ -541,7 +541,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>Novwatech</h3>
+                    <h3>NovWaTech</h3>
                     <p>Intelligent Water Infrastructure Monitoring</p>
                     <p>Preventing pipe bursts through AI-driven predictions</p>
                 </div>
@@ -553,7 +553,7 @@
                 </div>
                 <div class="footer-section">
                     <h3>Contact</h3>
-                    <p>Email: info@Novwatech.com</p>
+                    <p>Email: info@novwatech.com</p>
                     <p>Phone: (+27) 66 288 2929</p>
                     <p>Address: 123 Tech Street, Cape Town</p>
                 </div>
